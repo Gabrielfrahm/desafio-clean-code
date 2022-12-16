@@ -14,7 +14,13 @@ class ListCustomerUseCase {
   async execute(_: InputListCustomerDTO): Promise<OutputListCustomerDTO> {
     const customers = await this.CustomerRepository.findAll();
     return {
-      customers: customers,
+      customers: customers.map((item) => {
+        return {
+          id: item.id,
+          name: item.name,
+          address: item.address,
+        };
+      }),
     };
   }
 }
